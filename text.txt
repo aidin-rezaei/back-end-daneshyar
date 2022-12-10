@@ -61,3 +61,15 @@
 // email
 // supervisor
 // password
+
+
+
+
+
+
+Full texts	
+id
+username
+password
+phone
+email

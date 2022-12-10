@@ -3,14 +3,13 @@ include('config.php');
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['studentNumber'] && $_SERVER['HTTP_AUTHORIZATION']) {
-        $password = str_replace('Bearer ','',$_SERVER['HTTP_AUTHORIZATION']) ;
+    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION']) {
+        $password = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
         $sql = "SELECT username,
-        studentNumber,
-        phone,
         email,
-        supervisor FROM users WHERE password = '".$password."'&& studentNumber='".$_POST['studentNumber']."'";
-        
+        phone 
+        FROM supervisors WHERE password = '" . $password . "' AND email='" . $_POST['username'] . "'";
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -19,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //     $row["studentNumber"] === $_POST['studentNumber']
                 //     and $row["password"] === $password
                 // ) {
-                    $room[] = $row;
-                    $rows['data']['user'] = $room;
-                    $rows['data']['status'] = '1';
-                    echo (json_encode($rows, 448));
+                $room[] = $row;
+                $rows['data']['admin'] = $room;
+                $rows['data']['status'] = '1';
+                echo (json_encode($rows, 448));
                 // }
             }
         } else {
@@ -31,3 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
+// Full texts	
+// id
+// username
+// password
+// phone
+// email
