@@ -21,13 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $room[] = $row;
                 $rows['data']['admin'] = $room;
                 $rows['data']['status'] = '1';
-                echo (json_encode($rows, 448));
                 // }
             }
         } else {
             $rows['data']['status'] = '0';
             $rows['data']['error'] = $conn->error;
         }
+        echo (json_encode($rows, 448));
+
     }
 }
 

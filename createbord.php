@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     )";
                     if ($conn->query($sql) === TRUE) {
                         $rows['data']['status'] = '1';
-                        echo (json_encode($rows, 448));
                     } else {
                         $rows['data']['status'] = '0';
                         $rows['data']['error'] = $conn->error;
@@ -48,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $rows['data']['status'] = '0';
             $rows['data']['error'] = $conn->error;
         }
+        echo (json_encode($rows, 448));
        
     }
 }

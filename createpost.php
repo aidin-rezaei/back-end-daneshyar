@@ -51,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $rows['data']['status'] = '0';
             $rows['data']['error'] = $conn->error;
         }
+        echo (json_encode($rows, 448));
+
        
     }
 }
