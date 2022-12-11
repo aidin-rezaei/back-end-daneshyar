@@ -3,19 +3,18 @@ include('config.php');
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     if (
-        $_POST['username'] &&
-        $_POST['studentNumber'] &&
+        $_POST['username']&&
         $_POST['title'] &&
         $_POST['discretion'] &&
         $_POST['path_file'] &&
         $_POST['supervisors']&&
         $_SERVER['HTTP_AUTHORIZATION']
     ) {
-        $sql = "SELECT studentNumber,password FROM users";
+        $sql = "SELECT email,password FROM supervisors";
         $result = $conn->query($sql);
         $username = $_POST['username'];
-        $studentNumber = $_POST['studentNumber'];
         $title = $_POST['title'];
         $discretion = $_POST['discretion'];
         $path_file = $_POST['path_file'];
@@ -23,16 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = str_replace('Bearer ','',$_SERVER['HTTP_AUTHORIZATION']) ;
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                if ($row["studentNumber"] === $studentNumber and $row["password"] === $password) {
-                    $sql = "INSERT INTO `posts`( `username`,
-                    `studentNumber`,
+                if ($row["email"] === $username and $row["password"] === $password) {
+                    $sql = "INSERT INTO `bords`( 
                     `title`,
                     `discretion`,
                     `path_file`,
                     `supervisors`
                     ) 
-                    VALUES ('$username',
-                    '$studentNumber',
+                    VALUES (
                     '$title',
                     '$discretion',
                     '$path_file',
@@ -54,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
        
     }
 }
+
+
 
 
 
