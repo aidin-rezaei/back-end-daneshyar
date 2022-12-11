@@ -5,7 +5,7 @@ header('Content-Type: application/json; charset=utf-8');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION']) {
         $password = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
-        $sql = "SELECT username,
+        $sql = "SELECT id,username,
         email,
         phone 
         FROM supervisors WHERE password = '" . $password . "' AND email='" . $_POST['username'] . "'";

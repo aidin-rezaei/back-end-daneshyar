@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         '$email',
         '$password')";
         if ($conn->query($sql) === TRUE) {
-            $rows['data']['users']['username'] = email;
+            $rows['data']['users']['username'] = $email;
             $rows['data']['users']['hash'] = $password;
             $rows['data']['status'] = '1';
             echo (json_encode($rows, 448));
