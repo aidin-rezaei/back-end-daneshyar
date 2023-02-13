@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_POST['path_file'] &&
         $_SERVER['HTTP_AUTHORIZATION']
     ) {
-        $sql = "SELECT email,password FROM supervisors";
+        $sql = "SELECT email,password FROM users";
         $result = $conn->query($sql);
         $username = $_POST['username'];
         $supervisors = $_POST['supervisors'];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                if ($row["email"] === $username and $row["password"] === $password) {
+                if ($row["studentNumber"] === $username and $row["password"] === $password) {
                     $sql = "INSERT INTO `chats`( `content`,
                         `path_file`,
                         `supervisors`,
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         '$supervisors',
                         '$user',
                         '0',
-                        'admin'
+                        'user'
                         )";
                     if ($conn->query($sql) === TRUE) {
                         $rows['data']['status'] = '1';
