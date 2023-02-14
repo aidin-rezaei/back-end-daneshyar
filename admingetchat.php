@@ -3,9 +3,10 @@ include('config.php');
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION'] && $_POST['id']) {
+    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION'] && $_POST['supervisors'] && $_POST['user']) {
         $password = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
-        $id = $_POST['id'];
+        $supervisors = $_POST['supervisors'];
+        $user = $_POST['user'];
         $sql = "SELECT username,
         email,
         phone 
@@ -15,9 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $sql = "SELECT * FROM posts WHERE supervisors='$id'";
+                $sql = "SELECT * FROM chats WHERE supervisors='$supervisors' AND user='$user' ORDER BY date";
                 $result = $conn->query($sql);
-
+                // echo 1;
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $room[] = $row;
