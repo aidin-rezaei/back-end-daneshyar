@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         phone 
         FROM supervisors WHERE password = '" . $password . "' AND email='" . $_POST['username'] . "'";
 
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
