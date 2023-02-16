@@ -3,9 +3,8 @@ include('config.php');
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION'] && $_POST['supervisors']&& $_POST['id']) {
+    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION'] && $_POST['id']) {
         $password = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
-        $supervisors = $_POST['supervisors'];
         $id = $_POST['id'];
         $sql = "SELECT username,
         email,
@@ -16,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $sql = "SELECT * FROM users WHERE supervisors='$id' ";
+                $sql = "SELECT * FROM users WHERE supervisor='$id' ";
                 $result = $conn->query($sql);
                 // echo 1;
                 if ($result->num_rows > 0) {
