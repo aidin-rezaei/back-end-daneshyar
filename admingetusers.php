@@ -3,10 +3,10 @@ include('config.php');
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf-8');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION'] && $_POST['supervisors'] && $_POST['user']) {
+    if ($_POST['username'] && $_SERVER['HTTP_AUTHORIZATION'] && $_POST['supervisors']&& $_POST['id']) {
         $password = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
         $supervisors = $_POST['supervisors'];
-        $user = $_POST['user'];
+        $id = $_POST['id'];
         $sql = "SELECT username,
         email,
         phone 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $sql = "SELECT * FROM chats WHERE supervisors='$supervisors' AND user='$user' ORDER BY date";
+                $sql = "SELECT * FROM users WHERE supervisors='$id' ";
                 $result = $conn->query($sql);
                 // echo 1;
                 if ($result->num_rows > 0) {
@@ -36,8 +36,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $rows['data']['error'] = $conn->error;
         }
         echo (json_encode($rows, 448));
-
     }
-
 }
-
